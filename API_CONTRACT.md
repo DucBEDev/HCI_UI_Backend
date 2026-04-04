@@ -1,4 +1,4 @@
-# Alarm API Contract
+# Alarm + Timer API Contract
 
 Base URL: `/api/alarms/:userId`
 
@@ -77,3 +77,78 @@ Success response:
 
 Error responses:
 - `404`: alarm khong ton tai hoac khong thuoc user.
+
+## Timer APIs
+
+Base URL: `/api/timers/:userId`
+
+## 5) Get All Timers
+- Method: `GET`
+- Endpoint: `/api/timers/:userId`
+- Description: Lay danh sach timer cua 1 user.
+
+Success response:
+- Status: `200`
+- Body: danh sach timer cua user.
+
+Error responses:
+- `404`: user khong ton tai.
+
+## 6) Create Timer
+- Method: `POST`
+- Endpoint: `/api/timers/:userId`
+- Description: Tao timer khi user bam Start.
+
+Request body:
+```json
+{
+  "label": "an com",
+  "duration_seconds": 120,
+  "started_at": "2026-04-04T15:30:00.000Z",
+  "active": true
+}
+```
+
+Ghi chu:
+- Co the gui them `user_id` trong body, nhung neu co thi phai trung voi `:userId`.
+- `started_at` co the bo qua, server se tu gan thoi gian hien tai.
+
+Success response:
+- Status: `201`
+- Body: timer object vua tao.
+
+Error responses:
+- `400`: thieu `label`, `duration_seconds` hoac gia tri khong hop le.
+- `404`: user khong ton tai.
+
+## 7) Update Timer Status
+- Method: `PATCH`
+- Endpoint: `/api/timers/:userId/:id/status`
+- Description: Cap nhat trang thai timer (vi du timer chay xong -> `active=false`).
+
+Request body:
+```json
+{
+  "active": false
+}
+```
+
+Success response:
+- Status: `200`
+- Body: timer object sau khi cap nhat.
+
+Error responses:
+- `400`: `active` khong phai boolean.
+- `404`: timer khong ton tai hoac khong thuoc user.
+
+## 8) Get Timer Detail
+- Method: `GET`
+- Endpoint: `/api/timers/:userId/:id`
+- Description: Lay chi tiet 1 timer cua dung user.
+
+Success response:
+- Status: `200`
+- Body: timer object.
+
+Error responses:
+- `404`: timer khong ton tai hoac khong thuoc user.
