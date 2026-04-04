@@ -152,3 +152,117 @@ Success response:
 
 Error responses:
 - `404`: timer khong ton tai hoac khong thuoc user.
+
+## Notes & Lists APIs
+
+Base URL: `/api/lists/:userId`
+
+## 9) Get All Lists (include notes)
+- Method: `GET`
+- Endpoint: `/api/lists/:userId`
+- Description: Lay tat ca list cua user, moi list tra kem toan bo note con (`items`) de render UI notes & lists.
+
+Success response:
+- Status: `200`
+- Body: danh sach list, moi list co mang `items`.
+
+Error responses:
+- `404`: user khong ton tai.
+
+## 10) Create List
+- Method: `POST`
+- Endpoint: `/api/lists/:userId`
+- Description: Tao moi 1 list cua user.
+
+Request body:
+```json
+{
+  "list_name": "Ghi chu"
+}
+```
+
+Ghi chu:
+- Co the gui them `user_id` trong body, nhung neu co thi phai trung voi `:userId`.
+
+Success response:
+- Status: `201`
+- Body: list object vua tao.
+
+Error responses:
+- `400`: thieu `list_name` hoac `user_id` body khong khop `:userId`.
+- `404`: user khong ton tai.
+
+## 11) Delete List
+- Method: `DELETE`
+- Endpoint: `/api/lists/:userId/:listId`
+- Description: Xoa 1 list cua dung user.
+
+Success response:
+- Status: `200`
+- Body:
+```json
+{
+  "message": "List deleted successfully"
+}
+```
+
+Error responses:
+- `404`: list khong ton tai hoac khong thuoc user.
+
+## 12) Add Note
+- Method: `POST`
+- Endpoint: `/api/lists/:userId/:listId/notes`
+- Description: Them 1 note vao list cua dung user.
+
+Request body:
+```json
+{
+  "content": "Mat khau WiFi: aura2024",
+  "completed": false
+}
+```
+
+Success response:
+- Status: `201`
+- Body: note object vua tao.
+
+Error responses:
+- `400`: thieu `content`.
+- `404`: list khong ton tai hoac khong thuoc user.
+
+## 13) Update Note Completed
+- Method: `PATCH`
+- Endpoint: `/api/lists/:userId/:listId/notes/:itemId/completed`
+- Description: Cap nhat trang thai `completed` cua note.
+
+Request body:
+```json
+{
+  "completed": true
+}
+```
+
+Success response:
+- Status: `200`
+- Body: note object sau khi cap nhat.
+
+Error responses:
+- `400`: `completed` khong phai boolean.
+- `404`: list hoac note khong ton tai trong user/list tuong ung.
+
+## 14) Delete Note
+- Method: `DELETE`
+- Endpoint: `/api/lists/:userId/:listId/notes/:itemId`
+- Description: Xoa note trong list cua dung user.
+
+Success response:
+- Status: `200`
+- Body:
+```json
+{
+  "message": "Note deleted successfully"
+}
+```
+
+Error responses:
+- `404`: list hoac note khong ton tai trong user/list tuong ung.
