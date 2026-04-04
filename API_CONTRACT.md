@@ -266,3 +266,69 @@ Success response:
 
 Error responses:
 - `404`: list hoac note khong ton tai trong user/list tuong ung.
+
+## Media APIs
+
+Base URL: `/api/media/:userId`
+
+## 15) Get All Media
+- Method: `GET`
+- Endpoint: `/api/media/:userId`
+- Description: Lay lich su media cua user.
+
+Success response:
+- Status: `200`
+- Body: danh sach media (sap xep moi nhat truoc).
+
+Error responses:
+- `404`: user khong ton tai.
+
+## Profile APIs
+
+Base URL: `/api/profile/:userId`
+
+## 16) Get User Profile
+- Method: `GET`
+- Endpoint: `/api/profile/:userId`
+- Description: Lay thong tin profile user gom `name`, `email`, `phone`.
+
+Success response:
+- Status: `200`
+- Body:
+```json
+{
+  "user_id": "uuid",
+  "name": "Tran Nam",
+  "email": "nam.tran@email.com",
+  "phone": "+84 90 123 4567"
+}
+```
+
+Error responses:
+- `404`: user khong ton tai.
+
+## 17) Update User Profile
+- Method: `PATCH`
+- Endpoint: `/api/profile/:userId`
+- Description: Cap nhat profile user.
+
+Request body:
+```json
+{
+  "name": "Tran Nam",
+  "email": "nam.tran@email.com",
+  "phone": "+84 90 123 4567"
+}
+```
+
+Ghi chu:
+- Co the cap nhat 1 hoac nhieu truong.
+- Bat buoc co it nhat 1 truong trong `name`, `email`, `phone`.
+
+Success response:
+- Status: `200`
+- Body: profile sau khi cap nhat.
+
+Error responses:
+- `400`: body khong co truong hop le de cap nhat.
+- `404`: user khong ton tai.
