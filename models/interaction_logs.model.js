@@ -27,7 +27,8 @@ const InteractionLogs = sequelize.define(
         },
         tools_called: {
             type: DataTypes.JSONB,
-            allowNull: true,
+            allowNull: false,
+            defaultValue: [],
         },
         latency_ms: {
             type: DataTypes.INTEGER,
@@ -35,6 +36,7 @@ const InteractionLogs = sequelize.define(
         },
         timestamp: {
             type: DataTypes.DATE,
+            allowNull: false,
             defaultValue: DataTypes.NOW,
         },
     },

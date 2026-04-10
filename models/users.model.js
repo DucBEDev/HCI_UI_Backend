@@ -14,12 +14,37 @@ const Users = sequelize.define(
             allowNull: false,
             unique: true,
         },
+        user_name: {
+            type: DataTypes.STRING(100),
+            allowNull: true,
+            unique: true,
+            validate: {
+                is: /^[A-Za-z0-9_]+$/,
+            },
+        },
+        user_password: {
+            type: DataTypes.STRING(255),
+            allowNull: true,
+        },
         name: {
             type: DataTypes.STRING(255),
-            allowNull: false,
+            allowNull: true,
+            validate: {
+                is: /^[\p{L}\s]+$/u,
+                notEmptyOrWhitespace(value) {
+                    if (value == null) {
+                        return;
+                    }
+
+                    if (!String(value).trim()) {
+                        throw new Error("name cannot be empty");
+                    }
+                },
+            },
         },
         created_at: {
             type: DataTypes.DATE,
+            allowNull: false,
             defaultValue: DataTypes.NOW,
         },
         last_interaction: {
@@ -28,14 +53,17 @@ const Users = sequelize.define(
         },
         traits: {
             type: DataTypes.JSONB,
+            allowNull: false,
             defaultValue: [],
         },
         preferences: {
             type: DataTypes.JSONB,
+            allowNull: false,
             defaultValue: {},
         },
         memory: {
             type: DataTypes.JSONB,
+            allowNull: false,
             defaultValue: [],
         },
     },

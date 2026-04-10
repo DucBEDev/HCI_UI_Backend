@@ -23,7 +23,11 @@ const Alarms = sequelize.define(
         },
         repeat: {
             type: DataTypes.STRING(20),
+            allowNull: false,
             defaultValue: "once",
+            validate: {
+                isIn: [["once", "daily", "weekly"]],
+            },
         },
         repeat_days: {
             type: DataTypes.STRING(50),
@@ -31,14 +35,17 @@ const Alarms = sequelize.define(
         },
         enabled: {
             type: DataTypes.BOOLEAN,
+            allowNull: false,
             defaultValue: true,
         },
         created_at: {
             type: DataTypes.DATE,
+            allowNull: false,
             defaultValue: DataTypes.NOW,
         },
         updated_at: {
             type: DataTypes.DATE,
+            allowNull: false,
             defaultValue: DataTypes.NOW,
         },
     },

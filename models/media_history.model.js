@@ -23,18 +23,22 @@ const MediaHistory = sequelize.define(
         },
         is_playing: {
             type: DataTypes.BOOLEAN,
+            allowNull: true,
             defaultValue: false,
         },
         play_count: {
             type: DataTypes.INTEGER,
+            allowNull: true,
             defaultValue: 1,
         },
         requested_at: {
             type: DataTypes.DATE,
+            allowNull: true,
             defaultValue: DataTypes.NOW,
         },
         last_played_at: {
             type: DataTypes.DATE,
+            allowNull: true,
             defaultValue: DataTypes.NOW,
         },
     },
